@@ -1,5 +1,7 @@
 "use strict";
 var su = require('..');
+var bat = require('swarm-bat'); // register loopback:
+
 var tape = require('tape');
 if (typeof(window)==='object') {
     var tape_dom = require('tape-dom');

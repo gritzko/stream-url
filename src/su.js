@@ -1,6 +1,5 @@
 "use strict";
 var url = require('url');
-var bat = require('swarm-bat');
 
 // returns some "handler object" that has .close() method
 // and emits 'connection' event
@@ -32,18 +31,6 @@ function register (protocol, listen_handler, connect_handler) {
 
 var adaptors = {};
 
-// just as an example, register adaptors for loopback streams
-register('loopback:', loopback_listen, loopback_connect);
-
-function loopback_listen (stream_url, callback) {
-    return new bat.BatServer(stream_url.host, {}, callback);
-}
-
-function loopback_connect (stream_url, callback) {
-    var stream = new bat.BatStream();
-    stream.connect(stream_url.host, {}, callback);
-    return stream;
-}
 
 module.exports = {
     listen: listen,
