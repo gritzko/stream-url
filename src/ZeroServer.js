@@ -23,6 +23,10 @@ ZeroServer.prototype._zero_connect = function (zero_stream) {
 };
 
 ZeroServer.prototype.listen = function (url, options, callback){
+    if (options && options.constructor===Function) {
+        callback = options;
+        options = undefined;
+    }
     if (this.id) {
         throw new Error('can listen one id only');
     }
@@ -34,7 +38,9 @@ ZeroServer.prototype.listen = function (url, options, callback){
         throw new Error('id is taken already');
     }
     ZeroServer.servers[this.id] = this;
-    callback(null, this);
+    if (callback) {
+        callback(null, this);
+    }
 };
 
 ZeroServer.prototype.close = function (){

@@ -16,19 +16,25 @@ function ZeroStream (pair) {
     this.data = [];
 }
 module.exports = ZeroStream;
-// TODO OpStream hook:  data is an Op !!!!!!!!!!!!!!!
 
 ZeroStream.prototype.on = function (event, callback) {
     switch (event) {
     case "data":
         this.on_data = callback;
-        while (this.data.length) { // fake buffering
-            callback(this.data.shift());
+        try {
+            while (this.data.length) { // fake buffering
+                callback(this.data.shift());
+            }
+        } catch (ex) {
+            console.error(ex);
+            if (this.pair.on_error) {
+                this.pair.on_error(ex.message);
+            }
         }
     break;
     case "connect":    this.on_connect = callback;    break;
     case "end":        this.on_end = callback;        break;
-    case "error":      /* never happens */            break;
+    case "error":      this.on_error = callback;      break;
     default:
         throw new Error('unsupported event');
     }
@@ -37,7 +43,14 @@ ZeroStream.prototype.on = function (event, callback) {
 ZeroStream.prototype.write = function (something, nothing, callback) {
     if (something!==undefined && something!==null) {
         if (this.pair.on_data) {
-            this.pair.on_data(something);
+            try {
+                this.pair.on_data(something);
+            } catch (ex) {
+                console.error(ex);
+                if (this.on_error) {
+                    this.on_error(ex.message);
+                }
+            }
         } else {
             if (this.pair.data.length>100) {
                 throw new Error('fake buffer overflow');

@@ -39,6 +39,12 @@ technical details and make it easily pluggable.
     The stream will emit all the [usual events][stream]:
     `data`, `end`, `error`.
 
+This package defines just one fictive URL protocol named `0` which
+masquerades local invocations for a stream. The 0 protocol is mostly
+useful for connecting componenets locally. It is not that useful for
+unit testing as it skips serialization/ deserialization for the sake
+of efficiency. See [test/][test] for usage examples.
 
 [go]: https://gobyexample.com/channels
 [stream]: https://iojs.org/api/stream.html
+[test]: test/01_connect_listen.js
