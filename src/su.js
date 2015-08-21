@@ -1,6 +1,13 @@
 "use strict";
 var url = require('url');
 
+var adaptors;
+if (typeof(window)==='object') {
+    adaptors = window.stream_url_adaptors = window.stream_url_adaptors || {};
+} else {
+    adaptors = process.stream_url_adaptors = process.stream_url_adaptors || {};
+}
+
 // returns some "handler object" that has .close() method
 // and emits 'connection' event
 function listen (stream_url, callback) {
@@ -29,7 +36,6 @@ function register (protocol, listen_handler, connect_handler) {
     };
 }
 
-var adaptors = {};
 
 
 module.exports = {
