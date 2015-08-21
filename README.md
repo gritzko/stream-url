@@ -2,7 +2,7 @@ Stream URLs
 ===========
 
 The package aims to unite two powerful universal concepts: streams and
-URLs.  It is mostly driven by desire to create modular istributed
+URLs.  It is mostly driven by desire to create modular distributed
 applications connected by asynchronous interfaces.
 Consider typical microservices. Those are connected by HTTP
 request-response calls thus emulating a synchronous call graph in a
@@ -32,7 +32,7 @@ technical details and make it easily pluggable.
 
 * `listen(url [,options] [,callback])` start a server (stream factory)
     listening at the `url`, using `options`. Invoke `callback` when
-    ready. The server will emit `connection` event for every new
+    ready. The server will emit a `connection` event for every new
     incoming connection/stream.
 * `connect(url [,options] [,callback])` connect to a server at (create
     a stream to) `url`. Invoke `callback` once ready to write.
