@@ -34,11 +34,13 @@ a different setting.
 ## API
 
 * `listen(url [,options] [,callback])` start a server (stream factory)
-    listening at the `url`, using `options`. Invoke `callback` when
-    ready. The server will emit a `connection` event for every new
+    listening at the `url`, using `options`. Invoke `callback(err,
+    server)` when ready or failed.
+    The server will emit a `connection` event for every new
     incoming connection/stream.
 * `connect(url [,options] [,callback])` connect to a server at (create
-    a stream to) `url`. Invoke `callback` once ready to write.
+    a stream to) `url`. Invoke `callback(err, stream)` once ready to
+    write or failed to connect.
     The stream will emit all the [usual events][stream]:
     `data`, `end`, `error`.
 
