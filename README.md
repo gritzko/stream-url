@@ -45,6 +45,22 @@ useful for connecting componenets locally. It is not that useful for
 unit testing as it skips serialization/ deserialization for the sake
 of efficiency. See [test/][test] for usage examples.
 
+All "real" protocols are defined in separate packages, as those
+introduce non-trivial dependencies.
+- [x] [server-side WebSocket in stream-url-ws][su-ws]
+- [x] [TCP][su-node]
+- [ ] [HTTP][su-node]
+- [ ] [filesystem sockets][su-node]
+- [ ] [stdin/stdout][su-node]
+- [ ] [client-side WebSocket][su-bro]
+- [ ] [postMessage][su-bro]
+- [ ] [WebStorage][su-bro]
+- [x] [loopback streams][swarm-bat]
+
 [go]: https://gobyexample.com/channels
 [stream]: https://iojs.org/api/stream.html
 [test]: test/01_connect_listen.js
+[su-ws]: https://github.com/gritzko/stream-url-ws
+[su-node]: https://github.com/gritzko/stream-url-node
+[su-bro]: https://github.com/gritzko/stream-url-browser
+[swarm-bat]: https://github.com/gritzko/swarm

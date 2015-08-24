@@ -26,7 +26,7 @@ ZeroStream.prototype.on = function (event, callback) {
                 callback(this.data.shift());
             }
         } catch (ex) {
-            console.error(ex);
+            console.error(ex.stack);
             if (this.pair.on_error) {
                 this.pair.on_error(ex.message);
             }
@@ -46,7 +46,7 @@ ZeroStream.prototype.write = function (something, nothing, callback) {
             try {
                 this.pair.on_data(something);
             } catch (ex) {
-                console.error(ex);
+                console.error(ex.stack);
                 if (this.on_error) {
                     this.on_error(ex.message);
                 }
