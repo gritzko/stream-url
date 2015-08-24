@@ -27,6 +27,9 @@ the app to open *data streams to URLs*.
 stream-url is a syntactic sugar, in a sense, or maybe even syntactic
 cocaine, but it definitely helps to clear a subsystem's code out of
 technical details and make it easily pluggable.
+Just replace `loopback://random_key` for `ws://myserver.com` or
+`tcp://10.10.10.10:1234` and the component/micro-service now works in
+a different setting.
 
 ## API
 
@@ -47,7 +50,7 @@ of efficiency. See [test/][test] for usage examples.
 
 All "real" protocols are defined in separate packages, as those
 introduce non-trivial dependencies.
-- [x] [server-side WebSocket in stream-url-ws][su-ws]
+- [x] [server-side WebSocket][su-ws]
 - [x] [TCP][su-node]
 - [ ] [HTTP][su-node]
 - [ ] [filesystem sockets][su-node]
