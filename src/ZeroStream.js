@@ -17,7 +17,7 @@ function ZeroStream (pair) {
 }
 module.exports = ZeroStream;
 
-ZeroStream.prototype.drainQueue = function () {
+ZeroStream.prototype.drain_queue = function () {
     try {
         while (this.data.length && this.on_data) {
             this.on_data(this.data.shift());

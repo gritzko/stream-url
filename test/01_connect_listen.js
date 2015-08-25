@@ -32,7 +32,6 @@ tape ('1.A listen-connect for direct-invocation streams', function (t) {
         });
         stream.on('end', function (){
             t.pass('stream ends'); // TODO
-            t.end();
         });
         stream.write(dummy_object);
     });
@@ -65,5 +64,22 @@ tape ('1.C receiver fails', function (t) {
             t.end();
         });
         stream.write('test');
+    });
+});
+
+tape ('1.D drain queue', function (t) {
+    su.listen('0:abc', function (err, server) {
+        server.on('connection', function (stream) {
+            var async = false;
+            stream.on('data', function(data) {
+                t.equal(data, 'queued');
+                t.equal(async, true);
+                t.end();
+            });
+            async = true;
+        });
+    });
+    su.connect('0:abc', function (err, stream) {
+        stream.write('queued');
     });
 });
