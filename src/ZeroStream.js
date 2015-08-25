@@ -17,19 +17,25 @@ function ZeroStream (pair) {
 }
 module.exports = ZeroStream;
 
+ZeroStream.prototype.drainQueue = function () {
+    try {
+        while (this.data.length && this.on_data) {
+            this.on_data(this.data.shift());
+        }
+    } catch (ex) {
+        console.error(ex.stack);
+        if (this.pair.on_error) {
+            this.pair.on_error(ex.message);
+        }
+    }
+};
+
 ZeroStream.prototype.on = function (event, callback) {
     switch (event) {
     case "data":
         this.on_data = callback;
-        try {
-            while (this.data.length) { // fake buffering
-                callback(this.data.shift());
-            }
-        } catch (ex) {
-            console.error(ex.stack);
-            if (this.pair.on_error) {
-                this.pair.on_error(ex.message);
-            }
+        if (this.data.length) {
+            setTimeout(this.drain_queue.bind(this), 1);
         }
     break;
     case "connect":    this.on_connect = callback;    break;
