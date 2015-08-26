@@ -15,7 +15,6 @@
   "files": [
     "src/*.js",
     "test/*.js",
-    "index.js",
     "LICENSE",
     "README.md"
   ],
