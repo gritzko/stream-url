@@ -11,6 +11,7 @@ if (typeof(window)==='object') {
 tape ('1.A listen-connect for direct-invocation streams', function (t) {
     var dummy_object = {dummy:'object'}, serv_rem;
     t.plan(8);
+    // 0: listener is ready immediately and invokes a callback synchronously
     var server = su.listen('0:string', function(err, serv) {
         serv_rem = serv;
         t.notOk(err, 'no errors');
@@ -39,11 +40,15 @@ tape ('1.A listen-connect for direct-invocation streams', function (t) {
 
 
 tape ('1.B connect fail', function (t) {
-    t.plan(2);
+    t.plan(4);
+    var callback_called = false;
     su.connect('0:nonexisting', function (err, stream) {
         t.ok(err, 'got an error');
         t.notOk(stream, 'no stream');
+        t.notOk(callback_called, 'callback invoked twice');
+        callback_called = true;
     });
+    t.notOk(callback_called, 'callback invoked synchronously');
 });
 
 
