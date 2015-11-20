@@ -1,6 +1,8 @@
 Stream URLs
 ===========
 
+[![Build Status](https://travis-ci.org/gritzko/stream-url.svg?branch=master)](https://travis-ci.org/gritzko/stream-url)
+
 The package aims to unite two powerful universal concepts: streams and
 URLs.  It is mostly driven by desire to create modular distributed
 applications connected by asynchronous interfaces.
