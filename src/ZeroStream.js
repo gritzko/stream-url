@@ -48,7 +48,7 @@ ZeroStream.prototype.on = function (event, callback) {
 
 ZeroStream.prototype.write = function (something, nothing, callback) {
     if (something!==undefined && something!==null) {
-        if (this.pair.on_data) {
+        if (this.pair.on_data && !this.pair.data.length) {
             try {
                 this.pair.on_data(something);
             } catch (ex) {
