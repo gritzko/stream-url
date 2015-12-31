@@ -45,6 +45,7 @@ function connect (stream_url, options, callback) {
             retries: 0,
             minDelay: options.reconnect.minDelay || 1000,
             currentDelay: 0,
+            pending: null,
             callback: function (err, stream) {
                 connector.connecting = false;
                 if (!err) {
@@ -87,11 +88,15 @@ function connect (stream_url, options, callback) {
                 var timeout = Math.random() * (connector.currentDelay - connector.minDelay) +
                               connector.minDelay;
                 connector.currentDelay *= 2;
-                setTimeout(function () {
+                connector.pending = setTimeout(function () {
                     connector._connect();
                 }, timeout);
             },
             disable: function () {
+                if (connector.pending) {
+                    clearTimeout(connector.pending);
+                    connector.pending = null;
+                }
                 connector.enabled = false;
                 return connector;
             },
