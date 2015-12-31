@@ -92,7 +92,7 @@ function connect (stream_url, options, callback) {
                     connector._connect();
                 }, timeout);
             },
-            disable: function () {
+            cancel: function () {
                 if (connector.pending) {
                     clearTimeout(connector.pending);
                     connector.pending = null;
