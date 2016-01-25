@@ -44,6 +44,7 @@ function connect (stream_url, options, callback) {
             enabled: true,
             retries: 0,
             minDelay: options.reconnect.minDelay || 1000,
+            maxDelay: options.reconnect.maxDelay,
             currentDelay: 0,
             pending: null,
             callback: function (err, stream) {
@@ -87,6 +88,9 @@ function connect (stream_url, options, callback) {
             reconnect: function () {
                 var timeout = Math.random() * (connector.currentDelay - connector.minDelay) +
                               connector.minDelay;
+                if (connector.maxDelay) {
+                    timeout = Math.min(timeout, connector.maxDelay);
+                }
                 connector.currentDelay *= 2;
                 connector.pending = setTimeout(function () {
                     connector._connect();
