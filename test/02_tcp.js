@@ -1,6 +1,5 @@
 "use strict";
-var su = require('stream-url');
-require('..');
+var su = require('..');
 
 var tape = require('tape');
 if (typeof(window)==='object') {

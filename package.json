@@ -1,6 +1,6 @@
 {
   "name": "stream-url",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "http://github.com/gritzko/stream-url",
   "repository": {
     "type": "git",
@@ -27,6 +27,6 @@
     "tape-dom": "^0.0.4"
   },
   "scripts": {
-    "test": "tape test/*.js | tap-spec"
+    "test": "node test/*.js | tap-spec"
   }
 }

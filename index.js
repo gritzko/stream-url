@@ -44,7 +44,7 @@ function register (protocol, listen_handler, connect_handler) {
 
 adaptors['0'] = require('./src/zero.js');
 adaptors.tcp = require('./src/tcp.js');
-//adaptors.std = require('./src/std.js');
+adaptors.std = require('./src/std.js');
 adaptors.file = require('./src/file.js');
 
 module.exports = {
