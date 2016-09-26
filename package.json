@@ -1,6 +1,6 @@
 {
   "name": "stream-url",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage": "http://github.com/gritzko/stream-url",
   "repository": {
     "type": "git",
@@ -18,8 +18,7 @@
     "LICENSE",
     "README.md"
   ],
-  "main": "src/su.js",
-  "browser": "src/su.js",
+  "main": "index.js",
   "dependencies": {
   },
   "devDependencies": {

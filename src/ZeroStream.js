@@ -106,10 +106,7 @@ ZeroStream.prototype.connect = function (url, options, callback) {
             if (++attempt<10) {
                 setTimeout(connect_to_server, 10);
             } else {
-                console.error('server not known: '+srv_id);
-                if (callback) {
-                    callback("server not known");
-                }
+                callback && callback("server not known");
             }
         } else {
             srv._zero_connect(self.pair);
