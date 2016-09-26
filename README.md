@@ -2,34 +2,24 @@ Stream URLs
 ===========
 
 The package aims to unite two powerful universal concepts: streams and
-URLs.  It is mostly driven by desire to create modular distributed
-applications connected by asynchronous interfaces.
-Consider typical microservices. Those are connected by HTTP
-request-response calls thus emulating a synchronous call graph in a
-fundamentally asynchronous environment.  Stream-connected
-architectures can be seen as distributed [go channels][go] instead.
-
-Streams allow to pipeline operations, provide flow control, and, most
-importantly, the concept of a stream is universal enough to use in 
-very different settings.
-
-For example, one may use loopback streams for testing, filesystem sockets
-to connect local processes, WebSockets to pass data over the internet
-and raw TCP streams for low-overhead inner network transmissions.
-Considering isomorphic apps, inside the browser one may use postMessage
-(frame to frame) or WebStorage (tab to tab) based streams.
-
-This approach fits event sourcing architectures extremely well, as
-all app's events are well serializable then.
-
-So, stream-url encapsulates details of a particular medium and allows
+URLs. `stream-url` encapsulates details of a particular medium and allows
 the app to open *data streams to URLs*.
-stream-url is a syntactic sugar, in a sense, or maybe even syntactic
-cocaine, but it definitely helps to clear a subsystem's code out of
-technical details and make it easily pluggable.
-Just replace `loopback://random_key` for `ws://myserver.com` or
-`tcp://10.10.10.10:1234` and the component/micro-service now works in
-a different setting.
+stream-url is a syntactic sugar, in a sense, but it definitely helps to
+clear a subsystem's code out of technical details and make it easily
+pluggable.
+
+```
+    var su = require('stream-url');
+    
+    // TCP server
+    var tcp_server = su.listen('tcp://localhost:1234', (err, serv) => {
+        serv.on('connection', stream => {
+        ...
+        
+    // stdin/stdout "client"
+    su.connect('std:', (err, stream) => {
+        ...
+```
 
 [![Build Status](https://travis-ci.org/gritzko/stream-url.svg?branch=master)](https://travis-ci.org/gritzko/stream-url)
 
@@ -54,14 +44,12 @@ of efficiency. See [test/][test] for usage examples.
 
 All "real" protocols are defined in separate packages, as those
 introduce non-trivial dependencies.
+
 - [x] [server-side WebSocket][su-ws]
 - [x] [TCP][su-node]
 - [ ] [HTTP][su-node]
-- [ ] [filesystem sockets][su-node]
-- [ ] [stdin/stdout][su-node]
-- [ ] [client-side WebSocket][su-bro]
-- [ ] [postMessage][su-bro]
-- [ ] [WebStorage][su-bro]
+- [x] [filesystem sockets][su-node]
+- [x] [stdin/stdout][su-node]
 - [x] [loopback streams][swarm-bat]
 
 [go]: https://gobyexample.com/channels
@@ -69,5 +57,4 @@ introduce non-trivial dependencies.
 [test]: test/01_connect_listen.js
 [su-ws]: https://github.com/gritzko/stream-url-ws
 [su-node]: https://github.com/gritzko/stream-url-node
-[su-bro]: https://github.com/gritzko/stream-url-browser
 [swarm-bat]: https://github.com/gritzko/swarm
